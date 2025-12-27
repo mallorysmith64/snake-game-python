@@ -10,7 +10,7 @@ block = pygame.image.load("./block.jpeg").convert()
 # Each [x, y] is a block. The first one is the head.
 snake_body = [[100, 100], [90, 100], [80, 100]] 
 direction = K_RIGHT # Initial movement direction
-step = 300 # Size of your block
+step = 30 # Size of your block
 
 clock = pygame.time.Clock() # To control game speed
 player_speed = 5
