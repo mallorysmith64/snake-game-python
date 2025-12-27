@@ -3,47 +3,46 @@ from pygame.locals import *
 
 pygame.init()
 
-# Setup screen
 screen = pygame.display.set_mode((800, 600))
-pygame.display.set_caption("Block Movement")
+block = pygame.image.load("./block.jpeg").convert()
 
-# Load assets
-# Note: Ensure block.jpeg is in the same folder
-try:
-    block = pygame.image.load("./block.jpeg").convert()
-except:
-    # Fallback if image isn't found
-    block = pygame.Surface((50, 50))
-    block.fill((255, 0, 0))
+# 1. Define snake segments (list of lists)
+# Each [x, y] is a block. The first one is the head.
+snake_body = [[100, 100], [90, 100], [80, 100]] 
+direction = K_RIGHT # Initial movement direction
+step = 300 # Size of your block
 
-block_x = 100
-block_y = 100
+clock = pygame.time.Clock() # To control game speed
 
 running = True
 while running:
-    # 1. Clear the screen (prevents trails/ghosting)
-    screen.fill((0, 0, 0)) 
-
-    # 2. Event Handling
     for event in pygame.event.get():
         if event.type == QUIT:
             running = False
-        
         if event.type == KEYDOWN:
-            if event.key == K_ESCAPE:
-                running = False
-            # Check event.key, not event.type
-            if event.key == K_UP:
-                block_y -= 10
-            if event.key == K_DOWN:
-                block_y += 10
-            if event.key == K_LEFT:
-                block_x -= 10
-            if event.key == K_RIGHT:
-                block_x += 10
+            # Update direction based on key press
+            if event.key in [K_UP, K_DOWN, K_LEFT, K_RIGHT]:
+                direction = event.key
 
-    # 3. Draw and Refresh
-    screen.blit(block, (block_x, block_y))
+    # 2. Movement Logic: Update the Head
+    head_x, head_y = snake_body[0]
+    if direction == K_UP:    head_y -= step
+    if direction == K_DOWN:  head_y += step
+    if direction == K_LEFT:  head_x -= step
+    if direction == K_RIGHT: head_x += step
+
+    # 3. Slithering Logic: 
+    # Add new head position to the front
+    snake_body.insert(0, [head_x, head_y])
+    # Remove the last segment (tail) so it doesn't grow infinitely
+    snake_body.pop()
+
+    # 4. Rendering
+    screen.fill((0, 0, 0))
+    for segment in snake_body:
+        screen.blit(block, (segment[0], segment[1]))
+    
     pygame.display.flip()
+    clock.tick(10) # Set FPS to 10 so it's playable
 
 pygame.quit()
