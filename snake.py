@@ -3,7 +3,7 @@ from pygame.locals import *
 
 pygame.init()
 
-screen = pygame.display.set_mode((800, 600))
+screen = pygame.display.set_mode((1000, 800))
 block = pygame.image.load("./block.jpeg").convert()
 
 # 1. Define snake segments (list of lists)
@@ -13,6 +13,7 @@ direction = K_RIGHT # Initial movement direction
 step = 300 # Size of your block
 
 clock = pygame.time.Clock() # To control game speed
+player_speed = 5
 
 running = True
 while running:
@@ -43,6 +44,6 @@ while running:
         screen.blit(block, (segment[0], segment[1]))
     
     pygame.display.flip()
-    clock.tick(10) # Set FPS to 10 so it's playable
+    clock.tick(4) # Set FPS to 10 so it's playable
 
 pygame.quit()
