@@ -3,6 +3,7 @@ from pygame.locals import *
 
 pygame.init()
 
+
 screen = pygame.display.set_mode((1000, 800))
 block = pygame.image.load("./block.jpeg").convert()
 
@@ -24,6 +25,7 @@ while running:
             # Update direction based on key press
             if event.key in [K_UP, K_DOWN, K_LEFT, K_RIGHT]:
                 direction = event.key
+                
 
     # 2. Movement Logic: Update the Head
     head_x, head_y = snake_body[0]
@@ -39,7 +41,7 @@ while running:
     snake_body.pop()
 
     # 4. Rendering
-    screen.fill((0, 0, 0))
+    screen.fill((0,100,0))
     for segment in snake_body:
         screen.blit(block, (segment[0], segment[1]))
     
