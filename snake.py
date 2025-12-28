@@ -3,6 +3,7 @@ from pygame.locals import *
 import random
 
 pygame.init()
+font = pygame.font.SysFont("Arial", 36)
 
 screen = pygame.display.set_mode((1000, 800))
 # Using .convert() is good practice for performance!
@@ -43,7 +44,7 @@ while running:
     # Create Rects for the head and the food to check collision
     head_rect = pygame.Rect(new_head[0], new_head[1], step, step)
     food_rect = pygame.Rect(food_x, food_y, 30, 30)
-
+    
     if head_rect.colliderect(food_rect):
         score += 1
         # Relocate food to a random spot
@@ -57,9 +58,11 @@ while running:
     # 3. Drawing
     screen.fill((0, 100, 0)) # Dark green background
     
+    score_text = font.render(f"Score: {score}", True, (255, 255, 255))
+    screen.blit(score_text, (10, 10))
+    
     # Draw Food
     screen.blit(food, (food_x, food_y))
-    
     # Draw Snake
     for segment in snake_body:
         screen.blit(block, (segment[0], segment[1]))
