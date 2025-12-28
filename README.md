@@ -23,7 +23,7 @@ Method 2: Web Browser (Pygbag)
 To run the game in your browser using WebAssembly:
 1. pip install pygbag </br>
 
-2. python -m pygbag snackgame </br>
+2. python3 -m pygbag snakegame </br>
 
 View in Browser: Open http://localhost:8000 
 
